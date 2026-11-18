@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>코모레비 — 일상을 담는 감성 갤러리</title>
+  <meta name="description" content="일본풍 미니멀리즘 감성의 반응형 갤러리 게시판">
+  <!-- Favicon 아이콘: 붉은 전통 낙관 도장 스타일 -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2215%22 fill=%22%23B83A2E%22/><text y=%2250%%22 x=%2250%%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2252%22 fill=%22%23FFFFFF%22 font-family=%22sans-serif%22 font-weight=%22bold%22>빛</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- 헤더 영역 -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="#" class="brand" title="코모레비 갤러리 홈">
+        <div class="hanko-stamp">빛</div>
+        <div class="brand-text">
+          <h1>
+            코모레비
+            <span class="brand-subname">Komorebi</span>
+          </h1>
+          <p class="sub-title">나뭇잎 사이로 비치는 햇살처럼, 일상의 사진 갤러리</p>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <!-- 로그인 전/후 사용자 상태 영역 -->
+        <div id="userProfileArea" class="user-profile-area">
+          <button id="openAuthBtn" class="btn btn-secondary btn-sm" type="button">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            로그인
+          </button>
+        </div>
+
+        <button id="openCreateBtn" class="btn btn-primary" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          새 글 쓰기
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 인트로 히어로 섹션 -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h2>사계의 기억, 일상의 아름다움</h2>
+      <p>계절이 머물다 가는 자리, 마음에 간직하고 싶은 풍경과 이야기를 기록해 보세요.</p>
+    </div>
+    <div class="stats-badge">
+      총 <span id="postCount">0</span>개의 이야기
+    </div>
+  </section>
+
+  <!-- 뷰 모드 컨트롤 바 (4열 / 3열 / 매거진 리스트) -->
+  <section class="view-control-bar">
+    <div class="view-control-container">
+      <div class="view-control-title">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 16v-4"></path>
+          <path d="M12 8h.01"></path>
+        </svg>
+        <span>보기 방식</span>
+      </div>
+      <div class="view-switch-group" role="radiogroup" aria-label="갤러리 보기 방식 선택">
+        <button class="view-btn active" data-view="grid-4" type="button" title="한 화면에 4개씩 모아보기">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+          </svg>
+          4열 갤러리
+        </button>
+        <button class="view-btn" data-view="grid-3" type="button" title="큼직한 3열 카드로 보기">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <rect x="2" y="4" width="5.5" height="16" rx="1"></rect>
+            <rect x="9.25" y="4" width="5.5" height="16" rx="1"></rect>
+            <rect x="16.5" y="4" width="5.5" height="16" rx="1"></rect>
+          </svg>
+          3열 와이드
+        </button>
+        <button class="view-btn" data-view="list-feed" type="button" title="사진과 글을 여유롭게 읽는 매거진 피드">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          </svg>
+          매거진 목록
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 메인 게시글 갤러리 목록 -->
+  <main class="main-content">
+    <ul id="galleryGrid" class="gallery-grid view-grid-4" aria-label="게시글 목록">
+      <!-- JavaScript로 동적 렌더링됩니다 -->
+    </ul>
+  </main>
+
+  <!-- 푸터 영역 -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p class="footer-quote">일기일회(一期一会) — 스쳐 지나가는 모든 순간은 일생에 단 한 번뿐인 소중한 인연입니다.</p>
+      <p class="footer-desc">© 2026 코모레비 감성 갤러리 게시판. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ======================================================================
+       [모달 1] 게시글 상세 보기 모달
+       ====================================================================== -->
+  <div id="detailModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>기록 상세 보기</span>
+          <span class="modal-title-kana">순간의 기억</span>
+        </div>
+        <button class="modal-close-btn" data-close-modal="detailModal" type="button" aria-label="닫기">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="detail-modal-image-wrap">
+          <img id="detailImage" src="" alt="게시글 이미지" class="detail-modal-image">
+        </div>
+        <div class="detail-meta">
+          <div class="detail-meta-left">
+            <span id="detailDate" class="detail-date">작성일: </span>
+            <span id="detailAuthor" class="detail-author">작성자: </span>
+          </div>
+          <span id="detailImageName" class="detail-image-name"></span>
+        </div>
+        <h3 id="detailTitle" class="detail-title"></h3>
+        <div id="detailContent" class="detail-content"></div>
+      </div>
+      <div class="modal-footer">
+        <button id="detailEditBtn" class="btn btn-secondary btn-sm" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 20h9"></path>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+          </svg>
+          수정
+        </button>
+        <button id="detailDeleteBtn" class="btn btn-danger btn-sm" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+          삭제
+        </button>
+        <button class="btn btn-secondary btn-sm" data-close-modal="detailModal" type="button">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       [모달 2] 게시글 작성 / 수정 모달
+       ====================================================================== -->
+  <div id="formModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="formModalTitle">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span id="formModalTitle">새 이야기 쓰기</span>
+          <span id="formModalSubtitle" class="modal-title-kana">소중한 순간 남기기</span>
+        </div>
+        <button class="modal-close-btn" data-close-modal="formModal" type="button" aria-label="닫기">&times;</button>
+      </div>
+      <form id="postForm">
+        <input type="hidden" id="editPostId" value="">
+        <div class="modal-body">
+          
+          <!-- 제목 입력 -->
+          <div class="form-group">
+            <label for="postTitle" class="form-label">
+              제목<span class="required">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="postTitle" 
+              class="form-input" 
+              placeholder="이야기의 제목을 입력하세요 (예: 맑은 날의 오후 산책)" 
+              required
+              maxlength="80"
+            >
+          </div>
+
+          <!-- Cloudinary 실제 이미지 첨부 영역 -->
+          <div class="form-group">
+            <div class="form-label-wrap">
+              <label class="form-label" for="imageFileInput">
+                대표 사진 첨부 <span class="label-optional">(선택)</span>
+              </label>
+              <span class="label-tip">사진을 첨부하지 않아도 글을 작성할 수 있습니다</span>
+            </div>
+
+            <!-- 파일 직접 첨부 드롭존 영역 -->
+            <div id="uploadImageSection" class="upload-image-section">
+              <div id="dropZone" class="file-drop-zone">
+                <input type="file" id="imageFileInput" accept="image/*" class="file-hidden-input">
+                
+                <div id="dropZonePrompt" class="drop-zone-prompt">
+                  <div class="drop-icon">
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+                      <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                      <polyline points="21 15 16 10 5 21"></polyline>
+                    </svg>
+                  </div>
+                  <p class="drop-zone-text"><strong>클릭하여 사진 파일 첨부</strong> 또는 여기로 드래그</p>
+                  <span class="drop-zone-sub">JPG, PNG, GIF, WebP 등 이미지 파일 지원 (Cloudinary 클라우드 업로드)</span>
+                </div>
+
+                <div id="imagePreviewContainer" class="image-preview-container" style="display: none;">
+                  <img id="imageFilePreview" src="" alt="첨부한 사진 미리보기">
+                  <div class="preview-bar">
+                    <span id="previewFileName" class="preview-filename"></span>
+                    <div class="preview-btn-group">
+                      <button type="button" id="changeImageBtn" class="btn btn-secondary btn-sm">사진 변경</button>
+                      <button type="button" id="removeImageBtn" class="btn btn-danger btn-sm">사진 삭제</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Cloudinary 업로드 진행 상태 표시바 -->
+              <div id="uploadProgressContainer" class="upload-progress-container" style="display: none;">
+                <div class="upload-progress-track">
+                  <div id="uploadProgressBar" class="upload-progress-fill" style="width: 0%;"></div>
+                </div>
+                <div class="upload-progress-info">
+                  <span id="uploadProgressText" class="upload-progress-text">이미지를 업로드하고 있습니다... 0%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 업로드된 이미지 URL 또는 기존 이미지 URL을 보관하는 히든 필드 (선택 사항이므로 required 없음) -->
+            <input type="hidden" id="selectedImageUrl" value="">
+            <input type="hidden" id="selectedImageTitle" value="">
+          </div>
+
+          <!-- 내용 입력 -->
+          <div class="form-group">
+            <label for="postContent" class="form-label">
+              내용<span class="required">*</span>
+            </label>
+            <textarea 
+              id="postContent" 
+              class="form-textarea" 
+              placeholder="마음에 남았던 풍경과 기억을 자유롭게 적어보세요..." 
+              required
+            ></textarea>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal="formModal">취소</button>
+          <button type="submit" id="formSubmitBtn" class="btn btn-primary">
+            등록하기
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       [모달 3] 삭제 확인 모달
+       ====================================================================== -->
+  <div id="deleteModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+    <div class="modal-container delete-dialog">
+      <div class="delete-dialog-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="3 6 5 6 21 6"></polyline>
+          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          <line x1="10" y1="11" x2="10" y2="17"></line>
+          <line x1="14" y1="11" x2="14" y2="17"></line>
+        </svg>
+      </div>
+      <h3 id="deleteModalTitle" class="delete-dialog-title">이 기록을 삭제하시겠습니까?</h3>
+      <p class="delete-dialog-desc">삭제된 게시글은 다시 복구할 수 없습니다.<br>계속 진행하시겠습니까?</p>
+      <div class="delete-dialog-actions">
+        <button type="button" class="btn btn-secondary" data-close-modal="deleteModal">취소</button>
+        <button type="button" id="confirmDeleteBtn" class="btn btn-danger">삭제하기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       [모달 4] 로그인 / 회원가입 모달
+       ====================================================================== -->
+  <div id="authModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+    <div class="modal-container auth-modal-container">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span id="authModalTitle">로그인</span>
+          <span id="authModalSubtitle" class="modal-title-kana">기억의 서재</span>
+        </div>
+        <button class="modal-close-btn" data-close-modal="authModal" type="button" aria-label="닫기">&times;</button>
+      </div>
+
+      <!-- 탭 전환 (로그인 / 회원가입) -->
+      <div class="auth-tabs">
+        <button type="button" id="tabLogin" class="auth-tab-btn active">로그인</button>
+        <button type="button" id="tabSignup" class="auth-tab-btn">회원가입</button>
+      </div>
+
+      <form id="authForm">
+        <div class="modal-body auth-modal-body">
+          <div id="authErrorMsg" class="auth-error-msg" style="display: none;"></div>
+
+          <!-- 회원가입 시에만 나타나는 닉네임 필드 -->
+          <div id="nicknameGroup" class="form-group" style="display: none;">
+            <label for="authNickname" class="form-label">
+              닉네임 / 필명<span class="required">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="authNickname" 
+              class="form-input" 
+              placeholder="게시글에 표시될 이름을 입력하세요 (예: 여행자, 사색가)"
+              maxlength="20"
+            >
+          </div>
+
+          <!-- 이메일 입력 -->
+          <div class="form-group">
+            <label for="authEmail" class="form-label">
+              이메일 주소<span class="required">*</span>
+            </label>
+            <input 
+              type="email" 
+              id="authEmail" 
+              class="form-input" 
+              placeholder="example@email.com" 
+              required
+            >
+          </div>
+
+          <!-- 비밀번호 입력 -->
+          <div class="form-group">
+            <label for="authPassword" class="form-label">
+              비밀번호<span class="required">*</span>
+              <span id="pwTip" class="label-tip">6자리 이상 입력해주세요</span>
+            </label>
+            <input 
+              type="password" 
+              id="authPassword" 
+              class="form-input" 
+              placeholder="비밀번호를 입력하세요" 
+              required
+              minlength="6"
+            >
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal="authModal">닫기</button>
+          <button type="submit" id="authSubmitBtn" class="btn btn-primary">로그인</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 토스트 메시지 컨테이너 -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- Firebase v10 Compat SDK (App, Firestore, Auth) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+  <!-- 애플리케이션 스크립트 -->
+  <script src="js/firebase-config.js"></script>
+  <script src="js/cloudinary.js"></script>
+  <script src="js/sampleImages.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
